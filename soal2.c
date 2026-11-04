@@ -28,8 +28,8 @@ void balikKata(char *kata){
 }
 
 int bandingkanPaket(const void *a, const void *b){
-    const Paket *paketA = (const Paket *)a;
-    const Paket *paketB = (const Paket *)b;
+    const Paket *paketA= (const Paket*)a;
+    const Paket *paketB= (const Paket*)b;
 
     if (paketA->indeks < paketB->indeks){
         return -1;
@@ -56,7 +56,7 @@ int main(){
     }
     /* Memeriksa paket valid */
     int jumlahValid = 0;
-    for (int i = 0; i < jumlah; i++){
+    for (int i= 0; i < jumlah; i++){
         int indeks;
         char kode[50];
         char kata[50];
@@ -74,7 +74,7 @@ int main(){
     }
 
     if (jumlahValid == 0){
-        printf("00");
+        printf("000");
         free(paket);
         return 0;
     }
@@ -85,12 +85,12 @@ int main(){
 
     int totalKarakter= 0;
     /* Menggabungkan kata dan menghitung jumlah karakter. */
-    for (int i = 0; i < jumlahValid; i++){
+    for (int i= 0; i < jumlahValid; i++){
         if (i > 0){
             printf(" ");
         }
         printf("%s", paket[i].kata);
-        totalKarakter += (int)strlen(paket[i].kata);
+        totalKarakter+= (int)strlen(paket[i].kata);
     }
     printf("\nLENGTH %d\n", totalKarakter);
     free(paket);
@@ -98,5 +98,5 @@ int main(){
     return 0;
 }
 
-/*algoritma qsort https://www.geeksforgeeks.org/c/qsort-function-in-c/ */
+
 /*algoritma qsort https://www.geeksforgeeks.org/c/qsort-function-in-c/ */
