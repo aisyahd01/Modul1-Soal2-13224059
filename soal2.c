@@ -15,7 +15,7 @@ typedef struct{
 }Paket;
 
 void balikKata(char *kata){
-    int kiri = 0;
+    int kiri= 0;
     int kanan= (int)strlen(kata) -1;
     while(kiri < kanan){
         char temp= kata[kiri];
@@ -28,12 +28,13 @@ void balikKata(char *kata){
 }
 
 int bandingkanPaket(const void *a, const void *b){
-    const Paket *paketA= (const Paket*)a;
-    const Paket *paketB= (const Paket*)b;
+    const Paket *paketA = (const Paket*)a;
+    const Paket *paketB = (const Paket*)b;
 
     if (paketA->indeks < paketB->indeks){
         return -1;
-    }if (paketA->indeks < paketB->indeks){
+    }
+    if (paketA->indeks > paketB->indeks){
         return 1;
     }
     return 0;
@@ -42,13 +43,12 @@ int bandingkanPaket(const void *a, const void *b){
 int main(){
     int jumlah;
     char kodeValid[50];
-
     if (scanf("%d %49s", &jumlah, kodeValid) != 2 || jumlah < 0){
         return 0;
     }
     Paket *paket = NULL;
     if (jumlah > 0){
-        paket = malloc((size_t)jumlah *sizeof(Paket));
+        paket= malloc((size_t)jumlah *sizeof(Paket));
         
         if (paket == NULL){
             return 1;
@@ -78,7 +78,6 @@ int main(){
         free(paket);
         return 0;
     }
-
     /* Mengurutkan paket berdasarkan indeks. */
     qsort(paket, (size_t)jumlahValid, sizeof(Paket),
           bandingkanPaket);
@@ -99,4 +98,4 @@ int main(){
 }
 
 
-/*algoritma qsort https://www.geeksforgeeks.org/c/qsort-function-in-c/ */
+/*library qsort https://www.geeksforgeeks.org/c/qsort-function-in-c/ */
