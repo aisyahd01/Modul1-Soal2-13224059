@@ -1,0 +1,222 @@
+name: Autograding Tests
+
+on:
+  - push
+  - repository_dispatch
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Case 01 - Contoh dari soal
+        id: case-01
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 01 - Contoh dari soal
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            5 KEY123
+            2 KEY123 dlrow
+            1 KEY123 olleh
+            3 XXX999 rahcaw
+            4 KEY123 siht
+            5 KEY12 nik
+          expected-output: |
+            hello world this
+            LENGTH 14
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 02 - Semua paket valid, input berurutan
+        id: case-02
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 02 - Semua paket valid, input berurutan
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            3 ALPHA
+            1 ALPHA ytiruces
+            2 ALPHA egassem
+            3 ALPHA tset
+          expected-output: |
+            security message test
+            LENGTH 19
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 03 - Semua paket valid, input terbalik
+        id: case-03
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 03 - Semua paket valid, input terbalik
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            4 MARS
+            4 MARS sram
+            3 MARS erolpxe
+            2 MARS lliw
+            1 MARS revor
+          expected-output: |
+            rover will explore mars
+            LENGTH 20
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 04 - Kode case-sensitive
+        id: case-04
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 04 - Kode case-sensitive
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            6 Code9
+            2 code9 cba
+            1 Code9 tac
+            4 Code9 god
+            3 CODE9 zyx
+            5 Code9 nus
+          expected-output: |
+            cat dog sun
+            LENGTH 9
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 05 - Hanya satu paket valid
+        id: case-05
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 05 - Hanya satu paket valid
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            3 SECRET
+            1 PUBLIC cba
+            2 SECRET ahpla
+            3 OPEN ateb
+          expected-output: |
+            alpha
+            LENGTH 5
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 06 - Tidak ada paket valid
+        id: case-06
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 06 - Tidak ada paket valid
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            3 ZULU
+            1 ALFA ahpla
+            2 BRAVO ovarb
+            3 DELTA atled
+          expected-output: "000"
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 07 - Kode harus sama persis
+        id: case-07
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 07 - Kode harus sama persis
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            4 KEY123
+            1 KEY1234 xob
+            2 KEY123 ruo
+            3 KEY12 eno
+            4 KEY123 tsil
+          expected-output: |
+            our list
+            LENGTH 7
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 08 - Indeks loncat, palindrom, satu huruf
+        id: case-08
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 08 - Indeks loncat, palindrom, satu huruf
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            5 PAL
+            10 PAL level
+            20 PAL a
+            15 PAL noon
+            5 PAL I
+            25 PAL rotor
+          expected-output: |
+            I level noon a rotor
+            LENGTH 16
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 09 - Edge case N = 0
+        id: case-09
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 09 - Edge case N = 0
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: "0 KEY"
+          expected-output: "000"
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Case 10 - Edge case N = 1
+        id: case-10
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 10 - Edge case N = 1
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal2 soal2.c
+          command: ./soal2
+          input: |
+            1 A
+            1 A a
+          expected-output: |
+            a
+            LENGTH 1
+          comparison-method: exact
+          timeout: 2
+          max-score: 5
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          CASE-01_RESULTS: "${{steps.case-01.outputs.result}}"
+          CASE-02_RESULTS: "${{steps.case-02.outputs.result}}"
+          CASE-03_RESULTS: "${{steps.case-03.outputs.result}}"
+          CASE-04_RESULTS: "${{steps.case-04.outputs.result}}"
+          CASE-05_RESULTS: "${{steps.case-05.outputs.result}}"
+          CASE-06_RESULTS: "${{steps.case-06.outputs.result}}"
+          CASE-07_RESULTS: "${{steps.case-07.outputs.result}}"
+          CASE-08_RESULTS: "${{steps.case-08.outputs.result}}"
+          CASE-09_RESULTS: "${{steps.case-09.outputs.result}}"
+          CASE-10_RESULTS: "${{steps.case-10.outputs.result}}"
+        with:
+          runners: case-01,case-02,case-03,case-04,case-05,case-06,case-07,case-08,case-09,case-10
