@@ -32,7 +32,7 @@ int bandingkanPaket(const void *a, const void *b) {
         return -1;
     }
 
-    if (paketA->indeks > paketB->indeks) {
+    if (paketA->indeks < paketB->indeks) {
         return 1;
     }
 
