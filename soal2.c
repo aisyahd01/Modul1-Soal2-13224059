@@ -80,12 +80,7 @@ int main(void) {
         }
     }
 
-    /* Jika tidak ada paket valid. */
-    if (jumlahValid == 0) {
-        printf("000\n");
-        free(paket);
-        return 0;
-    }
+   
 
     /* Mengurutkan paket berdasarkan indeks. */
     qsort(paket, (size_t)jumlahValid, sizeof(Paket),
