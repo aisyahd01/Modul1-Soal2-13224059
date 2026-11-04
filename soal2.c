@@ -27,7 +27,6 @@ void balikKata(char *kata){
     }
 }
 
-/* Membandingkan indeks paket untuk sorting. */
 int bandingkanPaket(const void *a, const void *b){
     const Paket *paketA = (const Paket *)a;
     const Paket *paketB = (const Paket *)b;
@@ -37,7 +36,6 @@ int bandingkanPaket(const void *a, const void *b){
     }if (paketA->indeks < paketB->indeks){
         return 1;
     }
-
     return 0;
 }
 
@@ -50,23 +48,23 @@ int main(){
     }
     Paket *paket = NULL;
     if (jumlah > 0){
-        paket = malloc((size_t)jumlah * sizeof(Paket));
+        paket = malloc((size_t)jumlah *sizeof(Paket));
         
         if (paket == NULL){
             return 1;
         }
     }
-
+    /* Memeriksa paket valid */
     int jumlahValid = 0;
     for (int i = 0; i < jumlah; i++){
         int indeks;
-        char kode[100];
-        char kata[100];
+        char kode[50];
+        char kata[50];
 
-        if (scanf("%d %99s %99s", &indeks, kode, kata) != 3){
+        if (scanf("%d %49s %49s", &indeks, kode, kata) !=3){
             break;
         }
-        if (strcmp(kode, kodeValid) == 0){
+        if (strcmp(kode, kodeValid)==0){
             balikKata(kata);
             paket[jumlahValid].indeks= indeks;
             strcpy(paket[jumlahValid].kata, kata);
@@ -76,7 +74,7 @@ int main(){
     }
 
     if (jumlahValid == 0){
-        printf("000");
+        printf("00");
         free(paket);
         return 0;
     }
